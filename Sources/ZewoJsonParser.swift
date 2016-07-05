@@ -41,14 +41,46 @@ public struct JSONParser {
     }
   }
 
+  typealias Option = GenericJsonParser.Option
   typealias Number = GenericJsonParser.Number
 
-  public static func parse(_ data: Data) throws -> StructuredData {
+  public static func parse(_ data: Data, options: Option = []) throws -> StructuredData {
 
     var bytes = data.bytes
 
     return try GenericJsonParser.parse(
       data: &bytes,
+      options: options,
+      onObject: toObject,
+      onArray: toArray,
+      onNull: toNull,
+      onBool: toBool,
+      onString: toString,
+      onNumber: toNumber
+    )
+  }
+
+  public static func parse(_ bytes: [UInt8], options: Option = []) throws -> StructuredData {
+
+    var bytes = bytes
+
+    return try GenericJsonParser.parse(
+      data: &bytes,
+      options: options,
+      onObject: toObject,
+      onArray: toArray,
+      onNull: toNull,
+      onBool: toBool,
+      onString: toString,
+      onNumber: toNumber
+    )
+  }
+
+  public static func parse(_ bytes: inout [UInt8], options: Option = []) throws -> StructuredData {
+
+    return try GenericJsonParser.parse(
+      data: &bytes,
+      options: options,
       onObject: toObject,
       onArray: toArray,
       onNull: toNull,
