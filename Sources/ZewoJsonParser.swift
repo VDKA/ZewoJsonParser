@@ -41,7 +41,7 @@ public struct JSONParser {
     }
   }
 
-  typealias Option = GenericJsonParser.Option
+  public typealias Option = GenericJsonParser.Option
   typealias Number = GenericJsonParser.Number
 
   public static func parse(_ data: Data, options: Option = []) throws -> StructuredData {
