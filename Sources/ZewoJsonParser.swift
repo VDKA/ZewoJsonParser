@@ -60,6 +60,20 @@ public struct JSONParser {
     )
   }
 
+  public static func parse(_ data: inout Data, options: Option = []) throws -> StructuredData {
+
+    return try GenericJsonParser.parse(
+      data: &data.bytes,
+      options: options,
+      onObject: toObject,
+      onArray: toArray,
+      onNull: toNull,
+      onBool: toBool,
+      onString: toString,
+      onNumber: toNumber
+    )
+  }
+
   public static func parse(_ bytes: [UInt8], options: Option = []) throws -> StructuredData {
 
     var bytes = bytes
